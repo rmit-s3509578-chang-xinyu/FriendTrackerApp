@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -23,6 +27,10 @@ public class FriendFragment extends Fragment{
 	private Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
 
 	protected static final int PICK_CONTACTS = 100;
+	protected static final String LOG_TAG = "ASDFASDF";
+
+
+	private ArrayList<String> list = new ArrayList<String>();
 
 
 	@Override
@@ -48,9 +56,15 @@ public class FriendFragment extends Fragment{
                 ContactDataManager contactsManager = new ContactDataManager(getActivity(), data);
                 String name = "";
                 String email = "";
+
+
                 try {
                     name = contactsManager.getContactName();
-                    email = contactsManager.getContactEmail();
+//                    email = contactsManager.getContactEmail();
+					Log.e(LOG_TAG, name);
+                    list.add(name);
+                    refreshList();
+
                 } catch (ContactDataManager.ContactQueryException e) {
 //                    Log.e(LOG_TAG, e.getMessage());
                 }
@@ -58,9 +72,22 @@ public class FriendFragment extends Fragment{
         }
     }
 
+    private void refreshList() {
+		listView =  v.findViewById(R.id.friendListView);
+
+
+		ArrayAdapter<String> arrayAdapter =
+				new ArrayAdapter<String>(getActivity(),
+						android.R.layout.simple_list_item_1,
+						list);
+
+
+		listView.setAdapter(arrayAdapter);
+	}
+
 	private void init() {
 
-		listView =  v.findViewById(R.id.friendListView);
+
 
 
 
