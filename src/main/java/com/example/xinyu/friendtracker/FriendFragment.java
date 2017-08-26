@@ -6,13 +6,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class FriendFragment extends Fragment{
 
 	private View v;
+	private ListView listView;
 	private FloatingActionButton addButton;
 	private TextView friendView;
+
+	protected static final int PICK_CONTACTS = 100;
 
 
 	@Override
@@ -31,6 +35,10 @@ public class FriendFragment extends Fragment{
 	}
 
 	private void init() {
+
+		listView =  v.findViewById(R.id.friendListView);
+
+
 
 		friendView = v.findViewById(R.id.textView2);
 
