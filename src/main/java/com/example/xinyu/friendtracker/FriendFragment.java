@@ -38,8 +38,6 @@ public class FriendFragment extends Fragment {
 
     private ArrayList<ContactDetail> list;
 
-
-
     ArrayAdapter<ContactDetail> arrayAdapter;
 
     public ArrayAdapter<ContactDetail> getAdapter() {
@@ -52,16 +50,11 @@ public class FriendFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-
-
     }
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_friend, container, false);
-
         init();
-
         return v;
     }
 
@@ -77,7 +70,6 @@ public class FriendFragment extends Fragment {
             contactDetail.setName(name);
             contactDetail.setEmail(email);
             list.add(contactDetail);
-
             Log.e(LOG_TAG, contactDetail.getEmail());
             Log.e(LOG_TAG, contactDetail.getName());
             refreshList();
@@ -85,8 +77,6 @@ public class FriendFragment extends Fragment {
             Log.e(LOG_TAG, e.getMessage());
         }
     }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_CONTACTS) {
@@ -111,7 +101,7 @@ public class FriendFragment extends Fragment {
     private void refreshList() {
         listView = v.findViewById(R.id.friendListView);
 
-        list = DataContext.get(getActivity()).getPatients();
+        list = DataContext.get(getActivity()).getFriend();
         arrayAdapter =
                 new ArrayAdapter<ContactDetail>(getActivity(),
                         android.R.layout.simple_list_item_1,
@@ -155,7 +145,7 @@ public class FriendFragment extends Fragment {
 
         listView = v.findViewById(R.id.friendListView);
 
-        list = DataContext.get(getActivity()).getPatients();
+        list = DataContext.get(getActivity()).getFriend();
         ArrayAdapter<ContactDetail> adapter =
                 new ArrayAdapter<ContactDetail>(getActivity(),
                         android.R.layout.simple_list_item_1,

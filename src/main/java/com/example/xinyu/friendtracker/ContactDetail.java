@@ -11,15 +11,10 @@ import java.util.UUID;
 
 public class ContactDetail {
 
-
-
-
     private UUID id;
-
-
     private String name;
     private String email;
-
+    private int phone;
 
     public ContactDetail() {
         id = UUID.randomUUID();
@@ -32,6 +27,14 @@ public class ContactDetail {
 
     public String getName() {
         return name;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -56,22 +59,17 @@ public class ContactDetail {
         return name;
     }
 
-
-
 }
-
-
-
 
 class DataContext {
 
-    private ArrayList<ContactDetail> mPatients;
+    private ArrayList<ContactDetail> mFriend;
     private static DataContext sDataContext;
     private Context mAppContext;
 
     private DataContext(Context appContext) {
         mAppContext = appContext;
-        mPatients = new ArrayList<ContactDetail>();
+        mFriend = new ArrayList<ContactDetail>();
     }
 
     public static DataContext get(Context c) {
@@ -81,13 +79,20 @@ class DataContext {
         return sDataContext;
     }
 
-    public ArrayList<ContactDetail> getPatients() {
-        return mPatients;
+    public ArrayList<ContactDetail> getFriend() {
+        return mFriend;
     }
 
-    public ContactDetail getPatient(UUID id) {
-        for (ContactDetail c : mPatients) {
+    public ContactDetail getFriend(UUID id) {
+        for (ContactDetail c : mFriend) {
             if (c.getId().equals(id))
+                return c;
+        }
+        return null;
+    }
+    public ContactDetail getFriend(String name) {
+        for (ContactDetail c : mFriend) {
+            if (c.getName().equals(name))
                 return c;
         }
         return null;

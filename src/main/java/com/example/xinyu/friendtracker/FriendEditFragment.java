@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 
@@ -26,15 +27,15 @@ public class FriendEditFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final String EXTRA_PATIENT_ID = "patient_id";
-
+    private static final String EXTRA_FRIEND_ID = "com.example.xinyu.friendtracker.contact.id";
+private static final String EXTRA_FRIEND_Name="com.example.xinyu.friendtracker.contact.name";
     protected static final String LOG_TAG = "ASDFASDF";
 
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<ContactDetail> list;
     private OnFragmentInteractionListener mListener;
 
     private ContactDetail contactDetail;
@@ -57,12 +58,14 @@ public class FriendEditFragment extends Fragment {
 //    }
     public FriendEditFragment() {
         // Required empty public constructor
+
+
     }
 
 
     public static FriendEditFragment newInstance(UUID pId) {
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_PATIENT_ID, pId);
+        args.putSerializable(EXTRA_FRIEND_ID, pId);
         FriendEditFragment fragment = new FriendEditFragment();
         fragment.setArguments(args);
         return fragment;
@@ -72,12 +75,10 @@ public class FriendEditFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-
-            UUID id = (UUID) getArguments().getSerializable(EXTRA_PATIENT_ID);
-            contactDetail = DataContext.get(getActivity()).getPatient(id);
+            UUID id = (UUID) getArguments().getSerializable(EXTRA_FRIEND_ID);
+            contactDetail = DataContext.get(getActivity()).getFriend(id);
             Log.e(LOG_TAG, "got id hahahaha");
+
         }
     }
 
