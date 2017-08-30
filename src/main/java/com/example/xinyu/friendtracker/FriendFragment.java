@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,24 +53,6 @@ public class FriendFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
-//        listView = v.findViewById(R.id.friendListView);
-//
-//        arrayAdapter = new ArrayAdapter<ContactDetail>(getActivity(),
-//                android.R.layout.simple_list_item_1,
-//                list);
-
-        Log.e(LOG_TAG,"AAAAA");
-        list = DataContext.get(getActivity()).getPatients();
-        Log.e(LOG_TAG,"BBBBB");
-        ArrayAdapter<ContactDetail> adapter =
-                new ArrayAdapter<ContactDetail>(getActivity(),
-                        android.R.layout.simple_list_item_1,
-                        list);
-//        setListAdapter(adapter);
-        Log.e(LOG_TAG,"AAACCCCCAA");
-
-
-//        listView.setAdapter(arrayAdapter);
 
     }
 
@@ -85,22 +68,16 @@ public class FriendFragment extends Fragment {
 
     public void showContacts(Intent data) {
         try {
-            Log.e(LOG_TAG,"AAAAA");
             ContactDataManager contactsManager = new ContactDataManager(getActivity(), data);
-            Log.e(LOG_TAG,"AAAAA");
             ContactDetail contactDetail = new ContactDetail();
-            Log.e(LOG_TAG,"AAAAA");
             String name = "";
             String email = "";
             name = contactsManager.getContactName();
-            Log.e(LOG_TAG,"AAAAA");
             email = contactsManager.getContactEmail();
-            Log.e(LOG_TAG,"AAAAA");
-            contactDetail.setName(name);      Log.e(LOG_TAG,"AAAAA");
-            contactDetail.setEmail(email);      Log.e(LOG_TAG,"AAAAA");
+            contactDetail.setName(name);
+            contactDetail.setEmail(email);
             list.add(contactDetail);
 
-            Log.e(LOG_TAG,"AAAAA");
             Log.e(LOG_TAG, contactDetail.getEmail());
             Log.e(LOG_TAG, contactDetail.getName());
             refreshList();
@@ -133,23 +110,31 @@ public class FriendFragment extends Fragment {
 
     private void refreshList() {
         listView = v.findViewById(R.id.friendListView);
-//
-//        arrayAdapter = new ArrayAdapter<ContactDetail>(getActivity(),
-//                android.R.layout.simple_list_item_1,
-//                list);
 
-        Log.e(LOG_TAG,"AAAAA");
         list = DataContext.get(getActivity()).getPatients();
-        Log.e(LOG_TAG,"BBBBB");
-        ArrayAdapter<ContactDetail> adapter =
+        arrayAdapter =
                 new ArrayAdapter<ContactDetail>(getActivity(),
                         android.R.layout.simple_list_item_1,
                         list);
-//        setListAdapter(adapter);
-        Log.e(LOG_TAG,"AAACCCCCAA");
 
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(arrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                ContactDetail c = (ContactDetail) (arrayAdapter.getItem(position));
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                // Start FriendEditFragment
+                Fragment fragmentFrame = fm.findFragmentById(R.id.fragmentContainer2);
+                if (fragmentFrame != null) {
+                    Fragment editFragment = FriendEditFragment.newInstance(c.getId());
+                    fm.beginTransaction().replace(R.id.fragmentContainer2, editFragment)
+                            .commit();
+                }
+
+            }
+        });
 
     }
 
@@ -163,32 +148,21 @@ public class FriendFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                friendView.append("success!");
                 startActivityForResult(contactPickerIntent, PICK_CONTACTS);
 
             }
         });
+
+        listView = v.findViewById(R.id.friendListView);
+
+        list = DataContext.get(getActivity()).getPatients();
+        ArrayAdapter<ContactDetail> adapter =
+                new ArrayAdapter<ContactDetail>(getActivity(),
+                        android.R.layout.simple_list_item_1,
+                        list);
+
+        listView.setAdapter(adapter);
     }
-
-
-
-
-    public void onListItemClick(ListView l , View v, int position, long id) {
-
-        Log.e(LOG_TAG, "entered");
-        ContactDetail c = (ContactDetail) (getAdapter().getItem(position));
-        Log.e(LOG_TAG, "CLICKED");
-
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        // Start FriendEditFragment
-        Fragment fragment2 = fm.findFragmentById(R.id.fragmentContainer2);
-        if (fragment2 != null) {
-            fragment2 = FriendEditFragment.newInstance(c.getId());
-            fm.beginTransaction().add(R.id.fragmentContainer2, fragment2)
-                    .commit();
-        }
-    }
-
 
 
 
