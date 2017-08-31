@@ -36,7 +36,7 @@ public class FriendFragment extends Fragment {
     protected static final String LOG_TAG = "ASDFASDF";
 
 
-    private ArrayList<ContactDetail> list;
+    public static ArrayList<ContactDetail> list;
 
     ArrayAdapter<ContactDetail> arrayAdapter;
 

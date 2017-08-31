@@ -4,12 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -45,6 +47,9 @@ public class FriendEditFragment extends Fragment {
     private ContactDetail contactDetail;
 
     private EditText editName, editEmail;
+    private Button removeButton;
+
+    private static final String DIALOG_REMOVE = "remove";
 
 
 
@@ -102,6 +107,9 @@ public class FriendEditFragment extends Fragment {
         editName.setText(contactDetail.getName());
         editEmail.setText(contactDetail.getEmail());
 
+        removeButton = v.findViewById(R.id.button2);
+
+
 
         editName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -135,6 +143,22 @@ public class FriendEditFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
 
             }
+        });
+
+
+
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                RemoveDialogFragment removeDialog = RemoveDialogFragment.newInstance(contactDetail.getId());
+                removeDialog.show(fm, DIALOG_REMOVE);
+
+
+            }
+
+
+
         });
     }
 
