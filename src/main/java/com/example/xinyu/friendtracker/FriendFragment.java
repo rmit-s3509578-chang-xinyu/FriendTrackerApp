@@ -130,7 +130,7 @@ public class FriendFragment extends Fragment {
                 if (fragmentFrame != null) {
                     Fragment editFragment = FriendEditFragment.newInstance(c.getId());
                     fm.beginTransaction().replace(R.id.fragmentContainer2, editFragment)
-                            .commit();
+                            .addToBackStack(null).commit();
                     Log.e(LOG_TAG, c.getId().toString());
                 }
             }
