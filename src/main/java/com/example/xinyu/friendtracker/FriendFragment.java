@@ -40,17 +40,13 @@ public class FriendFragment extends Fragment {
 
     ArrayAdapter<ContactDetail> arrayAdapter;
 
-    public ArrayAdapter<ContactDetail> getAdapter() {
-        return arrayAdapter;
-    }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
     }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_friend, container, false);
@@ -72,11 +68,12 @@ public class FriendFragment extends Fragment {
             list.add(contactDetail);
             Log.e(LOG_TAG, contactDetail.getEmail());
             Log.e(LOG_TAG, contactDetail.getName());
-            refreshList();
+            init();
         } catch (ContactDataManager.ContactQueryException e) {
             Log.e(LOG_TAG, e.getMessage());
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_CONTACTS) {
@@ -98,37 +95,6 @@ public class FriendFragment extends Fragment {
         }
     }
 
-    private void refreshList() {
-        listView = v.findViewById(R.id.friendListView);
-
-        list = DataContext.get(getActivity()).getFriend();
-        arrayAdapter =
-                new ArrayAdapter<ContactDetail>(getActivity(),
-                        android.R.layout.simple_list_item_1,
-                        list);
-
-
-        listView.setAdapter(arrayAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                ContactDetail c = (ContactDetail) (arrayAdapter.getItem(position));
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                // Start FriendEditFragment
-                Fragment fragmentFrame = fm.findFragmentById(R.id.fragmentContainer2);
-                if (fragmentFrame != null) {
-                    Fragment editFragment = FriendEditFragment.newInstance(c.getId());
-                    fm.beginTransaction().replace(R.id.fragmentContainer2, editFragment)
-                            .commit();
-                }
-
-            }
-        });
-
-    }
-
-
     private void init() {
 
 
@@ -144,16 +110,32 @@ public class FriendFragment extends Fragment {
         });
 
         listView = v.findViewById(R.id.friendListView);
-
         list = DataContext.get(getActivity()).getFriend();
-        ArrayAdapter<ContactDetail> adapter =
+        arrayAdapter =
                 new ArrayAdapter<ContactDetail>(getActivity(),
                         android.R.layout.simple_list_item_1,
                         list);
 
-        listView.setAdapter(adapter);
-    }
 
+        listView.setAdapter(arrayAdapter);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                ContactDetail c = (ContactDetail) (arrayAdapter.getItem(position));
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                // Start FriendEditFragment
+                Fragment fragmentFrame = fm.findFragmentById(R.id.fragmentContainer2);
+                if (fragmentFrame != null) {
+                    Fragment editFragment = FriendEditFragment.newInstance(c.getId());
+                    fm.beginTransaction().replace(R.id.fragmentContainer2, editFragment)
+                            .commit();
+                    Log.e(LOG_TAG, c.getId().toString());
+                }
+            }
+        });
+    }
 
 
 }

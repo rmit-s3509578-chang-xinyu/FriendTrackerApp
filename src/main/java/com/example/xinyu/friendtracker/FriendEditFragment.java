@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -25,10 +28,11 @@ import java.util.UUID;
 public class FriendEditFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private View v;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String EXTRA_FRIEND_ID = "com.example.xinyu.friendtracker.contact.id";
-private static final String EXTRA_FRIEND_Name="com.example.xinyu.friendtracker.contact.name";
+
     protected static final String LOG_TAG = "ASDFASDF";
 
 
@@ -39,6 +43,12 @@ private static final String EXTRA_FRIEND_Name="com.example.xinyu.friendtracker.c
     private OnFragmentInteractionListener mListener;
 
     private ContactDetail contactDetail;
+
+    private EditText editName, editEmail;
+
+
+
+
 //    /**
 //     * Use this factory method to create a new instance of
 //     * this fragment using the provided parameters.
@@ -79,14 +89,66 @@ private static final String EXTRA_FRIEND_Name="com.example.xinyu.friendtracker.c
             contactDetail = DataContext.get(getActivity()).getFriend(id);
             Log.e(LOG_TAG, "got id hahahaha");
 
+
         }
+    }
+
+
+    public void showFriendDetail() {
+        editName = v.findViewById(R.id.editText);
+        editEmail = v.findViewById(R.id.editText4);
+
+
+        editName.setText(contactDetail.getName());
+        editEmail.setText(contactDetail.getEmail());
+
+
+        editName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                contactDetail.setName(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        editEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                contactDetail.setEmail(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friend_edit, container, false);
+
+
+        v = inflater.inflate(R.layout.fragment_friend_edit, container, false);
+
+        showFriendDetail();
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
