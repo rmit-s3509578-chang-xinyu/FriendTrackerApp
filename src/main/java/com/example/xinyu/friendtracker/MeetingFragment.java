@@ -40,6 +40,7 @@ public class MeetingFragment extends Fragment {
 			 @Override
                      public void onClick(View v){
                     Toast.makeText(meetingView.this,R.string.);
+					
                 }
 			}
         }
