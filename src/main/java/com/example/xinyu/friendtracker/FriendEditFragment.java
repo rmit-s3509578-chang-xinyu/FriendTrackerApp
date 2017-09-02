@@ -31,8 +31,7 @@ public class FriendEditFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private View v;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
     private static final String EXTRA_FRIEND_ID = "com.example.xinyu.friendtracker.contact.id";
 
     protected static final String LOG_TAG = "ASDFASDF";
@@ -48,7 +47,7 @@ public class FriendEditFragment extends Fragment {
 
     private EditText editName, editEmail;
     private Button removeButton;
-
+    private Button cancleButton;
     private static final String DIALOG_REMOVE = "remove";
 
 
@@ -92,7 +91,7 @@ public class FriendEditFragment extends Fragment {
         if (getArguments() != null) {
             UUID id = (UUID) getArguments().getSerializable(EXTRA_FRIEND_ID);
             contactDetail = DataContext.get(getActivity()).getFriend(id);
-            Log.e(LOG_TAG, "got id hahahaha");
+            Log.e(LOG_TAG, "got id");
 
 
         }
@@ -102,15 +101,10 @@ public class FriendEditFragment extends Fragment {
     public void showFriendDetail() {
         editName = v.findViewById(R.id.editText);
         editEmail = v.findViewById(R.id.editText4);
-
-
         editName.setText(contactDetail.getName());
         editEmail.setText(contactDetail.getEmail());
-
         removeButton = v.findViewById(R.id.button2);
-
-
-
+        cancleButton=v.findViewById(R.id.button3);
         editName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -157,11 +151,21 @@ public class FriendEditFragment extends Fragment {
 
             }
 
-
-
         });
+        cancleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager cancle = getActivity().getSupportFragmentManager();
+                // Start FriendEditFragment
+                Fragment fragmentFrame = cancle.findFragmentById(R.id.fragmentContainer2);
+                if (fragmentFrame != null) {
+                    Fragment friendFragment = new FriendFragment();
+                    cancle.beginTransaction().replace(R.id.fragmentContainer2, friendFragment)
+                            .commit();
+                }
+            }
+    });
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

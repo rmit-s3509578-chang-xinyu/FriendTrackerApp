@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">FriendTracker</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_friend">Friend</string>
+    <string name="title_meeting">Meet</string>
+    <string name="friend_name">Name</string>
+    <string name="friend_tel">Tel.</string>
+    <string name="friend_dob">Date of birth</string>
+    <string name="friend_remove">Delete</string>
+    <string name="meeting_time">Time</string>
+    <string name="meeting_place">Place</string>
+    <string name="meeting_addfriend">ADD Friend</string>
+    <string name="friend_cancle">CANCLE</string>
 </resources>

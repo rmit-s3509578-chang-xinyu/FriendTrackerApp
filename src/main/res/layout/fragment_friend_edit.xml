@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="120dp"
-        android:text="Tel."
+        android:text="@string/friend_tel"
         android:textSize="24sp" />
 
     <Button
@@ -42,7 +42,16 @@
         android:layout_gravity="center_horizontal|bottom|left"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="360dp"
-        android:text="Delete" />
+        android:text="@string/friend_remove"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom|right"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="360dp"
+        android:text="@string/friend_cancle"/>
 
     <EditText
         android:id="@+id/editText"
@@ -52,7 +61,7 @@
         android:layout_marginTop="70dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="@string/friend_name" />
 
     <EditText
         android:id="@+id/editText4"
@@ -74,13 +83,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="170dp"
-        android:text="Dob:"
+        android:text="@string/friend_dob"
         android:textSize="24sp" />
 
     <DatePicker
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="265dp"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="170dp" />
 
