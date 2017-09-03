@@ -15,6 +15,17 @@ public class ContactDetail {
     private String name;
     private String email;
     private int phone;
+    private String BirthDate;
+
+    public String getBirthDate() {
+        return BirthDate;
+    }
+
+    public void setBirthDate(String startTimeDate) {
+        this.BirthDate = BirthDate;
+    }
+
+
 
     public ContactDetail() {
         id = UUID.randomUUID();
@@ -40,6 +51,7 @@ public class ContactDetail {
     public String getEmail() {
         return email;
     }
+
 
 
     public void setId(UUID id) {

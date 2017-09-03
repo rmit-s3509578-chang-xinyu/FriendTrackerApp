@@ -1,8 +1,11 @@
 package com.example.xinyu.friendtracker;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -12,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.UUID;
 
 
@@ -43,11 +49,14 @@ public class FriendEditFragment extends Fragment {
     private ArrayList<ContactDetail> list;
     private OnFragmentInteractionListener mListener;
 
-    private ContactDetail contactDetail;
+    private static ContactDetail newContactDetail;
+    private static ContactDetail contactDetail;
 
     private EditText editName, editEmail;
     private Button removeButton;
     private Button cancleButton;
+    private Button dateButton;
+    private static TextView BirthDate;
     private static final String DIALOG_REMOVE = "remove";
 
 
@@ -101,7 +110,9 @@ public class FriendEditFragment extends Fragment {
     public void showFriendDetail() {
         editName = v.findViewById(R.id.editText);
         editEmail = v.findViewById(R.id.editText4);
+        BirthDate = v.findViewById(R.id.textViewDate);
         editName.setText(contactDetail.getName());
+        BirthDate.setText(contactDetail.getBirthDate());
         editEmail.setText(contactDetail.getEmail());
         removeButton = v.findViewById(R.id.button2);
         cancleButton=v.findViewById(R.id.button3);
@@ -165,6 +176,14 @@ public class FriendEditFragment extends Fragment {
                 }
             }
     });
+        dateButton = v.findViewById(R.id.buttonDate);
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FriendEditFragment.DatePickerFragment newFragment = new FriendEditFragment.DatePickerFragment();
+                newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+            }
+        });
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -218,7 +237,33 @@ public class FriendEditFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Do something with the date chosen by the user
+            String date = String.valueOf(day) + "/" + String.valueOf(month+1) + "/" + String.valueOf(year);
+            BirthDate.setText(date);
+            if (contactDetail==null) {
+                newContactDetail.setBirthDate(date);
+            } else {
+                contactDetail.setBirthDate(date);
+            }
 
 
 
+        }
+    }
 }

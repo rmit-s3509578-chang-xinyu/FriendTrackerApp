@@ -82,21 +82,6 @@
         android:layout_marginTop="120dp"
         android:text="TextView" />
 
-    <Button
-        android:id="@+id/buttonDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="260dp"
-        android:layout_marginTop="120dp"
-        android:text="Pick Date"
-         />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
     <TextView
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
@@ -112,5 +97,13 @@
         android:layout_marginLeft="260dp"
         android:layout_marginTop="180dp"
         android:text="Pick Time" />
+
+    <Button
+        android:id="@+id/buttonDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="120dp"
+        android:text="Pick Date" />
 
 </FrameLayout>
