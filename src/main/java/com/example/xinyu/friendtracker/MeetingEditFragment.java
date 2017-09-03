@@ -58,7 +58,7 @@ public class MeetingEditFragment extends Fragment {
 
     private static MeetingDetail meetingDetail;
 
-    private MeetingDetail newMeetingDetail;
+    private static MeetingDetail newMeetingDetail;
     private boolean isNew = false;
 
     // TODO: Rename and change types of parameters
@@ -135,13 +135,9 @@ public class MeetingEditFragment extends Fragment {
         startTimeDate = v.findViewById(R.id.textViewDate);
         startTimeTime = v.findViewById(R.id.textViewTime);
         if (meetingDetail != null) {
-            Log.e(LOG_TAG,"in");
             meetingTitle.setText(meetingDetail.getTitle());
-            Log.e(LOG_TAG,"hi");
             startTimeDate.setText(meetingDetail.getStartTimeDate());
-            Log.e(LOG_TAG,"hi1");
             startTimeTime.setText(meetingDetail.getStartTimeTime());
-            Log.e(LOG_TAG,"hi2");
         }
 
 
@@ -230,7 +226,7 @@ public class MeetingEditFragment extends Fragment {
 
 
         if (isNew) {
-            
+            newMeetingDetail.setId(UUID.randomUUID());
             MeetingFragment.meetingList.add(newMeetingDetail);
         }
 
@@ -273,7 +269,9 @@ public class MeetingEditFragment extends Fragment {
             // Do something with the time chosen by the user
             String time = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
             startTimeTime.setText(time);
-            if (meetingDetail!=null) {
+            if (meetingDetail==null) {
+                newMeetingDetail.setStartTimeTime(time);
+            } else {
                 meetingDetail.setStartTimeTime(time);
             }
         }
@@ -298,7 +296,9 @@ public class MeetingEditFragment extends Fragment {
             // Do something with the date chosen by the user
             String date = String.valueOf(day) + "/" + String.valueOf(month+1) + "/" + String.valueOf(year);
             startTimeDate.setText(date);
-            if (meetingDetail!=null) {
+            if (meetingDetail==null) {
+                newMeetingDetail.setStartTimeDate(date);
+            } else {
                 meetingDetail.setStartTimeDate(date);
             }
 
