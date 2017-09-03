@@ -1,7 +1,6 @@
 package com.example.xinyu.friendtracker;
 
 import android.content.Context;
-import android.widget.DatePicker;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -10,38 +9,38 @@ import java.util.UUID;
 
 public class MeetingDetail {
 
-    private DatePicker startTime, endTime;
-    private ContactDetail friends;
-    private String location;
-    private UUID id;
-    private String title;
+    private String startTimeTime, startTimeDate, endTimeTime, endTimeDate;
 
-
-
-
-
-    public String getTitle() {
-        return title;
+    public String getStartTimeTime() {
+        return startTimeTime;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setStartTimeTime(String startTimeTime) {
+        this.startTimeTime = startTimeTime;
     }
 
-    public DatePicker getStartTime() {
-        return startTime;
+    public String getStartTimeDate() {
+        return startTimeDate;
     }
 
-    public void setStartTime(DatePicker startTime) {
-        this.startTime = startTime;
+    public void setStartTimeDate(String startTimeDate) {
+        this.startTimeDate = startTimeDate;
     }
 
-    public DatePicker getEndTime() {
-        return endTime;
+    public String getEndTimeTime() {
+        return endTimeTime;
     }
 
-    public void setEndTime(DatePicker endTime) {
-        this.endTime = endTime;
+    public void setEndTimeTime(String endTimeTime) {
+        this.endTimeTime = endTimeTime;
+    }
+
+    public String getEndTimeDate() {
+        return endTimeDate;
+    }
+
+    public void setEndTimeDate(String endTimeDate) {
+        this.endTimeDate = endTimeDate;
     }
 
     public ContactDetail getFriends() {
@@ -60,15 +59,30 @@ public class MeetingDetail {
         this.location = location;
     }
 
-
-    public MeetingDetail() {
-        id = UUID.randomUUID();
-    }
-
-
     public UUID getId() {
         return id;
     }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    private ContactDetail friends;
+    private String location;
+    private UUID id;
+    private String title;
+
+
+
+
 
 
 
@@ -108,11 +122,5 @@ class DataContextMeeting {
         }
         return null;
     }
-    public MeetingDetail getMeeting(String title) {
-        for (MeetingDetail c : meeting) {
-            if (c.getTitle().equals(title))
-                return c;
-        }
-        return null;
-    }
+
 }

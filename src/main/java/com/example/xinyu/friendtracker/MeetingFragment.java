@@ -14,11 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
-
-
-
-
 import java.util.ArrayList;
 
 public class MeetingFragment extends Fragment {
@@ -35,7 +30,7 @@ public class MeetingFragment extends Fragment {
 	protected static final String LOG_TAG = "ASDFASDF";
 
 
-	public static ArrayList<MeetingDetail> list;
+	public static ArrayList<MeetingDetail> meetingList;
 
 	ArrayAdapter<MeetingDetail> arrayAdapter;
 
@@ -56,7 +51,7 @@ public class MeetingFragment extends Fragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_meeting, container, false);
+		v = inflater.inflate(R.layout.fragment_meeting, container, false);
 		init();
 		return v;
 
@@ -68,12 +63,12 @@ public class MeetingFragment extends Fragment {
 		TextView meetingtimeView = v.findViewById(R.id.textView10);
 		meetingListView = v.findViewById(R.id.meetingListView);
 
-		list = DataContextMeeting.get(getActivity()).getMeeting();
+		meetingList = DataContextMeeting.get(getActivity()).getMeeting();
 
 		arrayAdapter =
 				new ArrayAdapter<MeetingDetail>(getActivity(),
 						android.R.layout.simple_list_item_1,
-						list);
+						meetingList);
 
 
 		meetingListView.setAdapter(arrayAdapter);
@@ -87,22 +82,12 @@ public class MeetingFragment extends Fragment {
 				// Start FriendEditFragment
 				Fragment fragmentFrame = fm.findFragmentById(R.id.fragmentContainer2);
 				if (fragmentFrame != null) {
-					Fragment editFragment = FriendEditFragment.newInstance(c.getId());
-					fm.beginTransaction().replace(R.id.fragmentContainer2, editFragment)
+					Fragment fragment = MeetingEditFragment.newInstance(c.getId());
+					fm.beginTransaction().replace(R.id.fragmentContainer2, fragment)
 							.addToBackStack(null).commit();
-					Log.e(LOG_TAG, c.getId().toString());
 				}
 			}
 		});
-
-
-
-
-
-
-
-
-
 
 
 
@@ -112,10 +97,24 @@ public class MeetingFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 
-
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				// Start FriendEditFragment
+				Fragment fragmentFrame = fm.findFragmentById(R.id.fragmentContainer2);
+				if (fragmentFrame != null) {
+					Fragment fragment = new MeetingEditFragment();
+					fm.beginTransaction().replace(R.id.fragmentContainer2, fragment)
+							.addToBackStack(null).commit();
+					Log.e(LOG_TAG,"committed");
+				}
 			}
 
 
 		});
+
+
+
 	}
+
+
+
 }
