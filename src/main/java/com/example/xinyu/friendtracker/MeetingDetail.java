@@ -11,6 +11,11 @@ public class MeetingDetail {
 
     private String startTimeTime, startTimeDate, endTimeTime, endTimeDate;
 
+
+    public MeetingDetail() {
+        id = UUID.randomUUID();
+    }
+
     public String getStartTimeTime() {
         return startTimeTime;
     }
