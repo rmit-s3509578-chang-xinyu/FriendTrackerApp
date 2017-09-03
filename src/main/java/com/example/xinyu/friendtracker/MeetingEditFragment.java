@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -45,6 +46,7 @@ public class MeetingEditFragment extends Fragment {
     private static TextView startTimeTime, startTimeDate, endTime;
 
     private Button dateButton, timeButton;
+    private Button removeButton;
 
 
     private TextView title, place, time, placeTextView;
@@ -54,7 +56,7 @@ public class MeetingEditFragment extends Fragment {
 
     private static final String EXTRA_MEEDING_ID = "com.example.xinyu.friendtracker.meeting.id";
     protected static final String LOG_TAG = "ASDFASDF";
-
+    private static final String DIALOG_REMOVE = "remove";
 
     private static MeetingDetail meetingDetail;
 
@@ -121,9 +123,7 @@ public class MeetingEditFragment extends Fragment {
 
         return v;
 
-
     }
-
 
 
     public void showMeetingDetail() {
@@ -140,9 +140,7 @@ public class MeetingEditFragment extends Fragment {
             startTimeTime.setText(meetingDetail.getStartTimeTime());
         }
 
-
-
-
+        removeButton = v.findViewById(R.id.button2);
 
         meetingTitle.addTextChangedListener(new TextWatcher() {
 
@@ -195,7 +193,17 @@ public class MeetingEditFragment extends Fragment {
         });
 
 
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                RemoveDialogFragmentMeeting removeDialog = RemoveDialogFragmentMeeting.newInstance(meetingDetail.getId());
+                removeDialog.show(fm, DIALOG_REMOVE);
 
+
+            }
+
+        });
     }
 
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Created by bowen on 2017-08-27.
+ * Created by xinyu on 2017-08-27.
  */
 
 public class ContactDetail {

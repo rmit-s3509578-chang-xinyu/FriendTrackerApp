@@ -17,32 +17,13 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="151dp">
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:paddingRight="8dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="this is main"/>
-            <!--android:text="@string/ri_zeng"-->
+        <!--android:text="@string/ri_zeng"-->
 
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="left"/>
-            <!--android:src="@drawable/tab1a" -->
+        <!--android:src="@drawable/tab1a" -->
             <!--/>-->
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_gravity="right"/>
-            <!--android:src="@drawable/line" -->
+        <!--android:src="@drawable/line" -->
 
     </FrameLayout>
 
